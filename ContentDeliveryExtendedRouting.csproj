@@ -2,12 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
+    <VersionPrefix>1.0.1</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPiServer.CMS.AspNet" Version="11.7.1" />
     <PackageReference Include="EPiServer.ContentDeliveryApi" Version="1.0.0" />
     <PackageReference Include="Microsoft.Owin.Security" Version="3.1.0" />
     <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

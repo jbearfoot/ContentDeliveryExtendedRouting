@@ -42,6 +42,9 @@ namespace ContentDeliveryExtendedRouting.Routing
                 httpContext.RewritePath(property != null ?
                     $"/{EPiServer.ContentApi.RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}?{RoutingConstants.RoutedPropertyKey}={property}" :
                     $"/{EPiServer.ContentApi.RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}");
+
+                //Set RouteData to null to pass the request to next routes (WebApi route)
+                e.RoutingSegmentContext.RouteData = null;
             }
         }
 

@@ -26,29 +26,8 @@ namespace ContentDeliveryExtendedRouting.Routing
         {
             _routingEventHandler = context.Locate.Advanced.GetInstance<RoutingEventHandler>();
             _httpContextAccessor = context.Locate.Advanced.GetInstance<ServiceAccessor<HttpContextBase>>();
-            Global.RoutesRegistered += WrapContentRoutes;
+            Global.RoutesRegistered += (o, e) => e.Routes.RegisterPartialRouter(ServiceLocator.Current.GetInstance<PropertyPartialRouter>());
             GlobalConfiguration.Configuration.Filters.Add(new PropertyResolveFilter(_httpContextAccessor));
-        }
-
-        //until CMS-10523 is fixed we need to wrap default routes instead of just listen to IContentRouteEvents.RoutedContent
-        private void WrapContentRoutes(object sender, EPiServer.Web.Routing.RouteRegistrationEventArgs e)
-        {
-            //Find index of content routes
-            var indexedRoutes = new Dictionary<int, IContentRoute>();
-            for (int i = 0; i < e.Routes.Count; i++)
-            {
-                if (e.Routes[i] is IContentRoute contentRoute)
-                    indexedRoutes.Add(i, contentRoute);
-            }
-
-            foreach (var contentRoute in indexedRoutes)
-            {
-                var wrappedRoute = new ContentRouteWrapper(contentRoute.Value, _httpContextAccessor);
-                e.Routes.RemoveAt(contentRoute.Key);
-                e.Routes.Insert(contentRoute.Key, wrappedRoute);
-            }
-
-            e.Routes.RegisterPartialRouter(ServiceLocator.Current.GetInstance<PropertyPartialRouter>());
         }
 
         public void Uninitialize(InitializationEngine context)

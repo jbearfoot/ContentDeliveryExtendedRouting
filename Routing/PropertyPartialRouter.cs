@@ -57,9 +57,10 @@ namespace ContentDeliveryExtendedRouting.Routing
                 {
                     segmentContext.SetCustomRouteData(RoutingConstants.RoutedPropertyKey, nextSegment.Next);
                     segmentContext.RemainingPath = nextSegment.Remaining;
+                    return content;
                 }
             }
-            return content;
+            return null;
         }
 
         public PartialRouteData GetPartialVirtualPath(IContent content, string language, RouteValueDictionary routeValues, RequestContext requestContext)

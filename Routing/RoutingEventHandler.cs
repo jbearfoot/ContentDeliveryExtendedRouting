@@ -1,12 +1,9 @@
-﻿using EPiServer.Core;
+﻿using EPiServer.ContentApi.Core.Internal;
 using EPiServer.Globalization;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace ContentDeliveryExtendedRouting.Routing
@@ -40,8 +37,8 @@ namespace ContentDeliveryExtendedRouting.Routing
 
                 var property = routingContext.GetCustomRouteData<string>(RoutingConstants.RoutedPropertyKey);
                 httpContext.RewritePath(property != null ?
-                    $"/{EPiServer.ContentApi.RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}?{RoutingConstants.RoutedPropertyKey}={property}" :
-                    $"/{EPiServer.ContentApi.RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}");
+                    $"/{RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}?{RoutingConstants.RoutedPropertyKey}={property}" :
+                    $"/{RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}");
 
                 //Set RouteData to null to pass the request to next routes (WebApi route)
                 e.RoutingSegmentContext.RouteData = null;

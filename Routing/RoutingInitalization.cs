@@ -3,16 +3,8 @@ using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
-using EPiServer.Web.Routing.Segments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Routing;
 
 namespace ContentDeliveryExtendedRouting.Routing
 {

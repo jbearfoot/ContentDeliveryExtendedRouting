@@ -35,10 +35,13 @@ namespace ContentDeliveryExtendedRouting.Routing
                     language :
                     $"{language}, { acceptLanguageHeader}";
 
+                //we need to consider the application path of the request in case the app is hosted in a virtual directory in IIS
+                var applicationPath = VirtualPathUtility.AppendTrailingSlash(request.ApplicationPath);
+
                 var property = routingContext.GetCustomRouteData<string>(RoutingConstants.RoutedPropertyKey);
                 httpContext.RewritePath(property != null ?
-                    $"/{RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}?{RoutingConstants.RoutedPropertyKey}={property}" :
-                    $"/{RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}");
+                    $"{applicationPath}{RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}?{RoutingConstants.RoutedPropertyKey}={property}" :
+                    $"{applicationPath}{RouteConstants.BaseContentApiRoute}content/{routingContext.RoutedContentLink}");
 
                 //Set RouteData to null to pass the request to next routes (WebApi route)
                 e.RoutingSegmentContext.RouteData = null;
